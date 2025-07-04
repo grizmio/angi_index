@@ -1,0 +1,23 @@
+<html>
+<head>
+<script>
+function setHref() {
+    for(const ele of document.getElementsByClassName('changeme')){
+        ele.href = `${window.location.protocol}//${window.location.hostname}:${ele.dataset.port}/`;
+    }
+}
+</script>
+</head>
+
+<body onload="setHref()" style="padding-left: 40px; padding-top: 40px;">
+    <h2>
+        <a class="changeme" data-port='8123' href="">homeassistant</a><br /><br />
+        <a class="changeme" data-port='8096' href="">jellyfin</a><br /><br />
+        <a class="changeme" data-port='32400' href="">plex</a><br /><br />
+        <a class="changeme" data-port='6052' href="">esphome</a><br /><br />
+    </h2>
+</body>
+</html>
+
+
+        
