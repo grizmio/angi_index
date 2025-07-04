@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    
+    <script>
+        // Tu función original para establecer los enlaces dinámicamente
+        function setHref() {
+            const ip_addr = document.getElementById('ip_addr').value;
+            for (const ele of document.getElementsByClassName('changeme')) {
+                ele.href = `${window.location.protocol}//${ip_addr}:${ele.dataset.port}/`;
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos para un diseño hermoso y centrado */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            /* Centrado fácil con Flexbox */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5; /* Color de fondo suave */
+        }
+
+        .link-container {
+            background-color: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+            text-align: center;
+        }
+
+        h1 {
+            color: #1c1e21;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none; /* Quitamos los puntos de la lista */
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 18px; /* Espacio entre los enlaces */
+        }
+        
+        /* Quita el margen del último elemento para un espaciado perfecto */
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            display: block; /* Hacemos que el enlace ocupe todo el ancho del botón */
+            color: white;
+            background-color: #007bff; /* Color azul principal */
+            text-decoration: none; /* Quitamos el subrayado */
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 12px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Efecto al pasar el mouse */
+        a:hover {
+            background-color: #0056b3; /* Un azul más oscuro */
+            transform: scale(1.05); /* Efecto de crecimiento sutil */
+        }
+        /* --- Estilos para la etiqueta (opcional pero recomendado) --- */
+.custom-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  color: #333;
+}
+
+/* --- El contenedor que nos permite posicionar la flecha --- */
+.custom-select-wrapper {
+  position: relative;
+  width: 250px; /* Ancho de ejemplo */
+}
+
+/* --- El corazón del estilo: el select personalizado --- */
+.custom-select {
+  /* Oculta la apariencia nativa del navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Estilos generales */
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Padding: arriba/abajo, derecha, izquierda */
+  font-size: 1rem;
+  font-family: system-ui, sans-serif;
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px; /* Bordes más redondeados */
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* --- Flecha personalizada usando un pseudo-elemento ::after --- */
+.custom-select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  
+  /* SVG de la flecha (auto-contenido y nítido) */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+
+  /* IMPORTANTE: Evita que la flecha bloquee el clic en el select */
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+/* --- Efecto al pasar el mouse --- */
+.custom-select:hover {
+  border-color: #888888;
+}
+
+/* --- Estilo de foco para accesibilidad --- */
+.custom-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Opcional: Rotar la flecha cuando el select está en foco (efecto visual) */
+.custom-select:focus + .custom-select-wrapper::after {
+   /* Nota: Esto es un selector más complejo y no siempre funciona
+      dependiendo de la estructura. La forma simple con ::after es más robusta.
+      Dejamos el estilo de foco en el borde, que es más estándar. */
+}
+    </style>
+</head>
+<body onload="setHref()">
+
+    <div class="link-container">
+        <h1>Mis Servicios</h1>
+        <div class="custom-select-wrapper" style="padding-bottom: 15px;">
+          <select id="ip_addr" class="custom-select">
+            <option value="10.0.0.1">10.0.0.1</option>
+            <option selected value="192.168.1.250">192.168.1.250</option>
+          </select>
+        </div>
+        <ul>
+            <li><a class="changeme" data-port="8123" href="">🏠 Home Assistant</a></li>
+            <li><a class="changeme" data-port="8096" href="">🎬 Jellyfin</a></li>
+            <li><a class="changeme" data-port="32400" href="">▶️ Plex</a></li>
+            <li><a class="changeme" data-port="6052" href="">⚙️ ESPHome</a></li>
+            <li><a class="changeme" data-port="88" href="">🌽 Humita</a></li>
+            <li><a class="changeme" data-port="8888" href="">🎮 Romm</a></li>
+            <li><a class="changeme" data-port="9001" href="">🔗 QBittorrent</a></li>
+        </ul>
+    </div>
+    <script>
+        document.getElementById('ip_addr').addEventListener('change', function() {
+            setHref();
+        })
+    </script>
+</body>
+</html>
+
